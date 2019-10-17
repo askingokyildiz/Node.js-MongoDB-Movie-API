@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/movie', movieRouter);
+app.use('/api/movies', movieRouter);
 
 //db Connection
 const db = require('./helper/db.js')();
@@ -40,6 +40,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  
 });
 
 module.exports = app;

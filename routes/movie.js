@@ -18,9 +18,29 @@ router.post('/', function(req, res, next) {
     res.json({status:1});
   }).catch((err)=>{
     res.json(err);
-  })
+  });
 
 });
+router.get('/', function(req, res, next) {
+  const promise = Movie.find({});
+  promise.then((data)=>{
+    res.json(data);
+  }).catch((err)=>{
+    res.json(err);
+  });
+});
+router.get('/:movie_id', (req, res, next) =>{
+  const promise = Movie.findById(req.params.movie_id);
+  
+  promise.then((movie) => {
+		console.log(movie);
+		if (!movie)
+    res.json({error:{ message: 'The movie was not found.', code: 99 }});
 
+		res.json(movie);
+	  }).catch((err) => {
+		res.json(err);
+	});
+});
 
 module.exports = router;
